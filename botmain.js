@@ -33,7 +33,14 @@ bot.on("message", async message => {
 
 	if(command === `${prefix}ban`) {
 		if(isNaN(args[0]) && isNaN(args[1])) {
-			return;
+			request("https://api.roblox.com/users/get-by-username?username="+args[0], function (error, response, body) {
+				if(body != "") {
+					let info = JSON.parse(body);
+					if(!("Id" in info)) {
+						console.log("Id" in info);
+					};
+				};
+			});
 		};
 		request("http://unjailbreak.me/Aesthetic?method=DiscordBan&id="+args[0]+"&time="+args[1], function (error, response, body) {
 			if(body === "1") {
