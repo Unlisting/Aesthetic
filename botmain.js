@@ -32,7 +32,7 @@ bot.on("message", async message => {
 	if(!message.author.id == 441088046562279424) return;
 
 	if(command === `${prefix}ban`) {
-		if(isNaN(args[0]) && isNaN(args[1])) {
+		if(isNaN(args[0]) && isNaN(args[1]) && typeof args[0] !== "undefined" && typeof args[1] !== "undefined") {
 			request("https://api.roblox.com/users/get-by-username?username="+args[0], function (error, response, body) {
 				let info = JSON.parse(body);
 				if(typeof info.Id !== "undefined" && info) {
@@ -74,7 +74,7 @@ bot.on("message", async message => {
 	};
 
     if(command === `${prefix}unban`) {
-    	if(isNaN(args[0])) {
+    	if(isNaN(args[0]) && typeof args[0] !== "undefined") {
     		request("https://api.roblox.com/users/get-by-username?username="+args[0], function (error, response, body) {
     			let info = JSON.parse(body);
     			if(typeof info.Id !== "undefined" && info) {
