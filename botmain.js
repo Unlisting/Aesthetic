@@ -41,7 +41,7 @@ bot.on("message", async message => {
 					if(typeof info.Id !== "undefined" && info) {
 						request("http://unjailbreak.me/Aesthetic?method=DiscordBan&id="+info.Id+"&time="+args[1], function (error, response, body) {
 							if(body === "1") {
-								return message.channel.send("Successfully banned user for "+args[1]+" seconds! https://www.roblox.com/users/"+info.Id+"/profile");
+								return message.channel.send("Successfully banned user for "+args[1]+" second(s)! https://www.roblox.com/users/"+info.Id+"/profile");
 							} else {
 								if(body === "2") {
 									return message.channel.send("User is already banned! https://www.roblox.com/users/"+info.Id+"/profile");
@@ -64,7 +64,7 @@ bot.on("message", async message => {
 					if(typeof info.Username !== "undefined" && info) {
 						request("http://unjailbreak.me/Aesthetic?method=DiscordBan&id="+args[0]+"&time="+args[1], function (error, response, body) {
 								if(body === "1") {
-									return message.channel.send("Successfully banned user for "+args[1]+" seconds! https://www.roblox.com/users/"+args[0]+"/profile");
+									return message.channel.send("Successfully banned user for "+args[1]+" second(s)! https://www.roblox.com/users/"+args[0]+"/profile");
 								} else {
 									if(body === "2") {
 										return message.channel.send("User is already banned! https://www.roblox.com/users/"+args[0]+"/profile");
