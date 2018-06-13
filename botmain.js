@@ -60,24 +60,25 @@ bot.on("message", async message => {
 				return message.channel.send("Invalid Time Limit!");
 			} else {
 				request("https://api.roblox.com/Users/"+args[0], function (error, response, body) {
-				let info = JSON.parse(body);
-				if(typeof info.Username !== "undefined" && info) {
-					request("http://unjailbreak.me/Aesthetic?method=DiscordBan&id="+args[0]+"&time="+args[1], function (error, response, body) {
-							if(body === "1") {
-								return message.channel.send("Successfully banned user for "+args[1]+" seconds! https://www.roblox.com/users/"+args[0]+"/profile");
-							} else {
-								if(body === "2") {
-									return message.channel.send("User is already banned! https://www.roblox.com/users/"+args[0]+"/profile");
+					let info = JSON.parse(body);
+					if(typeof info.Username !== "undefined" && info) {
+						request("http://unjailbreak.me/Aesthetic?method=DiscordBan&id="+args[0]+"&time="+args[1], function (error, response, body) {
+								if(body === "1") {
+									return message.channel.send("Successfully banned user for "+args[1]+" seconds! https://www.roblox.com/users/"+args[0]+"/profile");
 								} else {
-									return message.channel.send("Missing arguments!");
+									if(body === "2") {
+										return message.channel.send("User is already banned! https://www.roblox.com/users/"+args[0]+"/profile");
+									} else {
+										return message.channel.send("Missing arguments!");
+									};
 								};
-							};
-						});
-				} else {
-					return message.channel.send("Invalid UserId!");
-				};
+							});
+					} else {
+						return message.channel.send("Invalid UserId!");
+					};
+				});
 			};
-    		});
+			
 		};
 	};
 
