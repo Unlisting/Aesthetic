@@ -87,7 +87,7 @@ bot.on("message", async message => {
 			    			return message.channel.send("Successfully unbanned user! https://www.roblox.com/users/"+info.Id+"/profile");
 			    		} else {
 						if(body === "2") {
-			    				return message.channel.send("User isn't banned! https://www.roblox.com/users/"+args[0]+"/profile");
+			    				return message.channel.send("User isn't banned! https://www.roblox.com/users/"+info.Id+"/profile");
 						} else {
 							return message.channel.send("Missing arguments!");
 						};
@@ -105,7 +105,11 @@ bot.on("message", async message => {
 			    		if(body === "1") {
 			    			return message.channel.send("Successfully unbanned user! https://www.roblox.com/users/"+args[0]+"/profile");
 			    		} else {
-			    			return message.channel.send("Missing arguments!");
+			    			if(body === "2") {
+			    				return message.channel.send("User isn't banned! https://www.roblox.com/users/"+args[0]+"/profile");
+						} else {
+							return message.channel.send("Missing arguments!");
+						};
 			    		};
 			    	});
     			} else {
