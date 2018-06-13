@@ -69,7 +69,6 @@ bot.on("message", async message => {
 
 	if(command === `${prefix}ban`) {
 		let User = args[0];
-    	let Specifier = "UserId";
 
     	if(isNaN(args[1])) return message.channel.send("Invalid Time Limit!");
 
@@ -91,12 +90,12 @@ bot.on("message", async message => {
     		});
     	};
 
-    	request("http://unjailbreak.me/Aesthetic?method=DiscordBan&id="+args[0]+"&time="+args[1], function (error, response, body) {
+    	request("http://unjailbreak.me/Aesthetic?method=DiscordBan&id="+User+"&time="+args[1], function (error, response, body) {
 			if(body === "1") {
-				return message.channel.send("Successfully banned user for "+args[1]+" second(s)! https://www.roblox.com/users/"+args[0]+"/profile");
+				return message.channel.send("Successfully banned user for "+args[1]+" second(s)! https://www.roblox.com/users/"+User+"/profile");
 			} else {
 				if(body === "2") {
-					return message.channel.send("User is already banned! https://www.roblox.com/users/"+args[0]+"/profile");
+					return message.channel.send("User is already banned! https://www.roblox.com/users/"+User+"/profile");
 				} else {
 					return message.channel.send("Missing arguments!");
 				};
@@ -108,7 +107,7 @@ bot.on("message", async message => {
 
     if(command === `${prefix}unban`) {
     	let User = args[0];
-    	let Specifier = "UserId";
+    	
     	if(isNaN(User)) {
     		request("https://api.roblox.com/users/get-by-username?username="+args[0], function (error, response, body) {
     			info = JSON.parse(body);
@@ -118,7 +117,6 @@ bot.on("message", async message => {
     				return message.channel.send("Invalid Username!");
     			};
     		});
-    		message.channel.send(info.Id);
     	} else {
     		request("https://api.roblox.com/Users/"+args[0], function (error, response, body) {
     			let info = JSON.parse(body);
@@ -128,12 +126,12 @@ bot.on("message", async message => {
     		});
     	};
 
-    	request("http://unjailbreak.me/Aesthetic?method=DiscordUnban&id="+args[0], function (error, response, body) {
+    	request("http://unjailbreak.me/Aesthetic?method=DiscordUnban&id="+User, function (error, response, body) {
     		if(body === "1") {
-    			return message.channel.send("Successfully unbanned user! https://www.roblox.com/users/"+args[0]+"/profile");
+    			return message.channel.send("Successfully unbanned user! https://www.roblox.com/users/"+User+"/profile");
     		} else {
     			if(body === "2") {
-    				return message.channel.send("User isn't banned! https://www.roblox.com/users/"+args[0]+"/profile");
+    				return message.channel.send("User isn't banned! https://www.roblox.com/users/"+User+"/profile");
 				} else {
 					return message.channel.send("Missing arguments!");
 				};
