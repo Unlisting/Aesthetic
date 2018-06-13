@@ -32,25 +32,29 @@ bot.on("message", async message => {
 	if(!message.author.id == 441088046562279424) return;
 
 	if(command === `${prefix}ban`) {
-		if(isNaN(args[0]) && isNaN(args[1])) {
-			request("https://api.roblox.com/users/get-by-username?username="+args[0], function (error, response, body) {
-				let info = JSON.parse(body);
-				if(typeof info.Id !== "undefined" && info) {
-					request("http://unjailbreak.me/Aesthetic?method=DiscordBan&id="+info.Id+"&time="+args[1], function (error, response, body) {
-						if(body === "1") {
-							return message.channel.send("Successfully banned user for "+args[1]+" seconds! https://www.roblox.com/users/"+info.Id+"/profile");
-						} else {
-							if(body === "2") {
-								return message.channel.send("User is already banned! https://www.roblox.com/users/"+info.Id+"/profile");
+		if(isNaN(args[0])) {
+			if(isNaN(args[1])) {
+				request("https://api.roblox.com/users/get-by-username?username="+args[0], function (error, response, body) {
+					let info = JSON.parse(body);
+					if(typeof info.Id !== "undefined" && info) {
+						request("http://unjailbreak.me/Aesthetic?method=DiscordBan&id="+info.Id+"&time="+args[1], function (error, response, body) {
+							if(body === "1") {
+								return message.channel.send("Successfully banned user for "+args[1]+" seconds! https://www.roblox.com/users/"+info.Id+"/profile");
 							} else {
-								return message.channel.send("Missing arguments!");
+								if(body === "2") {
+									return message.channel.send("User is already banned! https://www.roblox.com/users/"+info.Id+"/profile");
+								} else {
+									return message.channel.send("Missing arguments!");
+								};
 							};
-						};
-					});
-				} else {
-					return message.channel.send("Invalid Username!");
-				};
-			});
+						});
+					} else {
+						return message.channel.send("Invalid Username!");
+					};
+				});
+			} else {
+				return message.channel.send("Invalid time limit!");
+			};
 		} else {
 			request("https://api.roblox.com/Users/"+args[0], function (error, response, body) {
     			let info = JSON.parse(body);
