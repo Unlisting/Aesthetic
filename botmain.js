@@ -111,13 +111,14 @@ bot.on("message", async message => {
     	let Specifier = "UserId";
     	if(isNaN(User)) {
     		request("https://api.roblox.com/users/get-by-username?username="+args[0], function (error, response, body) {
-    			let info = JSON.parse(body);
+    			info = JSON.parse(body);
     			if(typeof info.Id !== "undefined" && info) {
     				User = info.Id;
     			} else {
     				return message.channel.send("Invalid Username!");
     			};
     		});
+    		message.channel.send(info.Id);
     	} else {
     		request("https://api.roblox.com/Users/"+args[0], function (error, response, body) {
     			let info = JSON.parse(body);
